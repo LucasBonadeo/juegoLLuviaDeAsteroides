@@ -1,16 +1,5 @@
 import wollok.game.*
-
-class Visual {
-	var property image
-	var property position = game.origin()
-}
-
-const mute = new Visual(image="mute.png", position=game.at(1,1))
-const fondoEspacio = new Visual(image="wp9247430.jpg", position=game.at(0,0))
-const fondoMenu = new Visual(image="fondoMenu.jpg", position=game.at(0,0))
-const fondoAsteroide = new Visual(image="fondoAsteroides.png", position=game.at(0,0))
-
-const puntuacionAstronauta = new Visual(image="astronautaPuntuacion.png" ,position=game.at(0, game.height() - 2 ))
+import visuales.*
 
 object laser {
 	var property position =nave.position()
@@ -40,7 +29,6 @@ object nave {
 			image = "naveCombate.png"
 		}
 	}
-	
 	method disparar() { 
 		if (modoCombate) {
 			laser.disparar()
@@ -63,20 +51,38 @@ class Asteroide {
 	}
 }
 
-object astronautaMenu {
-	var property position = game.at(12,8)
-	const property image = "AstronautaMenu.png"
+const izquierda = game.at(20,3.randomUpTo(10))
+const derecha = game.at(-15, 3.randomUpTo(10))
+
+class ObjetoVivoEnMenu {
+	const listaDeImg
+	var property position 
+	var property image = listaDeImg.first()
+	const velocidad = [600, 800, 1000]
 	
 	method iniciar() {
-		game.onTick(150,"mover astronauta",{ self.mover() })
+		if (position==izquierda)
+			game.onTick(velocidad.anyOne(),"mover izquierda",{ self.moverIzquierda() })
+		else	
+			game.onTick(velocidad.anyOne(),"mover derecha",{ self.moverDerecha() })
 	}
-	
-	method mover() {
+	method moverIzquierda() {
 		position = position.left(1)
-		if (position.x() == -8) { position = game.at(12,8) }
+		if (position.x() == -15) { 
+			image = listaDeImg.anyOne()
+			position = game.at(20,(2..20).anyOne())
+		}
+	}
+	method moverDerecha() {
+		position = position.right(1)
+		if (position.x() == 20) { 
+			image = listaDeImg.anyOne()
+			position = game.at(-15,(2..20).anyOne())
+		}
 	}
 }
 
-// Musica
+const astronautaMenu1 = new ObjetoVivoEnMenu(listaDeImg=astronautas, position=izquierda)
+const astronautaMenu2 = new ObjetoVivoEnMenu(listaDeImg=astronautas, image=astronautas.anyOne(), position=derecha)
+const piedrasMenu1 = new ObjetoVivoEnMenu(listaDeImg=imgPiedrasMenu, position=derecha)
 
-const musicaInicio = new Sound(file="__-___ ____ _ Super Nintendo  Sega Genesis 80s RetroWave Mix (mp3cut.net).mp3")

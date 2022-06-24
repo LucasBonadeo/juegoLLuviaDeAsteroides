@@ -1,9 +1,9 @@
 import wollok.game.*
-import visualesYObjetos.*
+import objetos.*
+import visuales.*
 
 object partida {
-	const imagenesAsteroides = ["asteroideAmarillo.png", "asteroideAzul.png", "asteroideCeleste.png", "asteroideRojo.png", "asteroideRosa.png" ]
-	const  mp3 = musicaInicio
+	const dificultades = [dificultad.facil(), dificultad.medio(), dificultad.dificil()]
 	
 	method iniciar() {
 		game.title("Naves Espaciales")
@@ -11,113 +11,61 @@ object partida {
 		game.height(20)
 		game.cellSize(50)
 		game.addVisual(fondoMenu)
-		game.addVisual(astronautaMenu)
-		astronautaMenu.iniciar()
+		self.moverObjetosMenu()
 		self.musica()
 		keyboard.space().onPressDo { self.jugar() }
 	}
 
+	method moverObjetosMenu() {
+		game.addVisual(astronautaMenu2)
+		game.addVisual(piedrasMenu1)
+		game.addVisual(astronautaMenu1)
+		astronautaMenu1.iniciar()
+		piedrasMenu1.iniciar()
+		astronautaMenu2.iniciar()
+	}
+	
 	method musica() {
-				
 		keyboard.m().onPressDo { 
-			mp3.play()
-			mp3.volume(0.5) 
+			musicaInicio.play()
+			musicaInicio.volume(0.5) 
 		}
-			
 		keyboard.n().onPressDo {
-			if (mp3.paused()) { 
-				mp3.resume()
+			if (musicaInicio.paused()) { 
+				musicaInicio.resume()
 				game.removeVisual(mute)
 			} 
 			else { 
-				mp3.pause()
+				musicaInicio.pause()
 				game.addVisual(mute)
 			}
 		}
 	}
 	method jugar() {
-			
 		game.clear()
 		game.addVisual(fondoEspacio)
 		game.addVisual(fondoAsteroide)
 		game.addVisualCharacter(laser)
 		game.addVisualCharacter(nave)
-		keyboard.z().onPressDo { 
-			nave.activarModoCombate()
-		}
+		keyboard.z().onPressDo { nave.activarModoCombate() }
 		keyboard.x().onPressDo { nave.disparar() }
 		
-		game.onTick(5000, "Crear Asteroide", { 
-			const asteroide = new Asteroide(position=game.at(0,25),	image=imagenesAsteroides.anyOne())
+		game.onTick(dificultades.get(1), "Crear Asteroide grande/mediano", { 
+			const asteroide = new Asteroide(position=game.at(0.randomUpTo(16),25),image=imagenesAsteroidesGrandes.anyOne())
 			game.addVisual(asteroide)
 			asteroide.iniciarMovimiento(asteroide.velocidades().anyOne())
 		})
 		
-		game.onTick(10000, "Crear Asteroide", { 
-			const asteroide = new Asteroide(position=game.at(2,25),	image=imagenesAsteroides.anyOne())
+		game.onTick(dificultades.get(1), "Crear Asteroide chico", { 
+			const asteroide = new Asteroide(position=game.at(0.randomUpTo(16),25),image=imagenesAsteroidesChicos.anyOne())
 			game.addVisual(asteroide)
 			asteroide.iniciarMovimiento(asteroide.velocidades().anyOne())
 		})
-		
-		game.onTick(15000, "Crear Asteroide", { 
-			const asteroide = new Asteroide(
-				position=game.at(4,25),
-				image=imagenesAsteroides.anyOne()
-			)
-			game.addVisual(asteroide)
-			asteroide.iniciarMovimiento(asteroide.velocidades().anyOne())
-		})
-		
-		game.onTick(20000, "Crear Asteroide", { 
-			const asteroide = new Asteroide(
-				position=game.at(6,25),
-				image=imagenesAsteroides.anyOne()
-			)
-			game.addVisual(asteroide)
-			asteroide.iniciarMovimiento(asteroide.velocidades().anyOne())
-		})
-		
-		game.onTick(25000, "Crear Asteroide", { 
-			const asteroide = new Asteroide(
-				position=game.at(8,25),
-				image=imagenesAsteroides.anyOne()
-			)
-			game.addVisual(asteroide)
-			asteroide.iniciarMovimiento(asteroide.velocidades().anyOne())
-		})
-		
-		game.onTick(30000, "Crear Asteroide", { 
-			const asteroide = new Asteroide(
-				position=game.at(10,25),
-				image=imagenesAsteroides.anyOne()
-			)
-			game.addVisual(asteroide)
-			asteroide.iniciarMovimiento(asteroide.velocidades().anyOne())
-		})
-		
-		game.onTick(35000, "Crear Asteroide", { 
-			const asteroide = new Asteroide(
-				position=game.at(12,25),
-				image=imagenesAsteroides.anyOne()
-			)
-			game.addVisual(asteroide)
-			asteroide.iniciarMovimiento(asteroide.velocidades().anyOne())
-		})
-		
-		game.onTick(40000, "Crear Asteroide", { 
-			const asteroide = new Asteroide(
-				position=game.at(14,25),
-				image=imagenesAsteroides.anyOne()
-			)
-			game.addVisual(asteroide)
-			asteroide.iniciarMovimiento(asteroide.velocidades().anyOne())
-		})
-		game.addVisual(puntuacionAstronauta)
-	//	game.whenCollideDo(laser, { elemento =>  game.removeVisual(elemento)
-    	//	laser.position(nave.position())
-  
-	
-	}
+		}
 }
 
-	
+object dificultad {
+	method facil() = 8000
+	method medio() = 5000
+	method dificil() = 3000
+}
