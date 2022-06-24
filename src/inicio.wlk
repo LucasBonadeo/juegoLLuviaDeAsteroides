@@ -11,18 +11,17 @@ object partida {
 		game.height(20)
 		game.cellSize(50)
 		game.addVisual(fondoMenu)
-		self.moverObjetosMenu()
+		self.moverRocasMenu()
+		game.addVisual(astronautaMenu)
 		self.musica()
 		keyboard.space().onPressDo { self.jugar() }
 	}
 
-	method moverObjetosMenu() {
-		game.addVisual(astronautaMenu2)
-		game.addVisual(piedrasMenu1)
-		game.addVisual(astronautaMenu1)
-		astronautaMenu1.iniciar()
-		piedrasMenu1.iniciar()
-		astronautaMenu2.iniciar()
+	method moverRocasMenu() {
+		game.addVisual(rocaIzquierda)
+		game.addVisual(rocaDerecha)
+		rocaIzquierda.iniciar()
+		rocaDerecha.iniciar()
 	}
 	
 	method musica() {

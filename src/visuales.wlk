@@ -17,19 +17,16 @@ const imagenesAsteroidesChicos = ["asteroideAmarillo1.png", "asteroideAzul1.png"
 		"asteroideRosa1.png", "asteroideAmarillo1 - copia.png", "asteroideAzul1 - copia.png", "asteroideCeleste1 - copia.png", "asteroideRojo1 - copia.png", 
 		"asteroideRosa1 - copia.png" ]
 
-// Astronautas menu
-
-const astronautas = ["AstronautaMenu1.png", "AstronautaMenu2.png", "AstronautaMenu3.png", "AstronautaMenu4.png",
-		"AstronautaMenu5.png", "AstronautaMenu6.png", "AstronautaMenu7.png"]
-
 // Piedras menu
 
-const imgPiedrasMenu = ["piedrasMenu2.png", "piedrasMenu3.png", "piedrasMenu1.png", "piedrasMenu3.png"]
+const rocasMenu = ["piedrasMenu2.png", "piedrasMenu3.png", "piedrasMenu1.png", "piedrasMenu4.png", "piedrasMenu5.png",
+	"piedrasMenu6.png","piedrasMenu7.png","piedrasMenu8.png"]
 
 const mute = new Visual(image="mute.png", position=game.at(1,1))
 const fondoEspacio = new Visual(image="wp9247430.jpg", position=game.at(0,0))
 const fondoMenu = new Visual(image="fondoMenu.jpg", position=game.at(0,0))
 const fondoAsteroide = new Visual(image="fondoAsteroides.png", position=game.at(0,0))
+const astronautaMenu = new Visual(image="astronautaMenu.png", position=game.at(1,9))
 
 const puntuacionAstronauta = new Visual(image="astronautaPuntuacion.png" ,position=game.at(0, game.height() - 2 ))
 

@@ -51,14 +51,14 @@ class Asteroide {
 	}
 }
 
-const izquierda = game.at(20,3.randomUpTo(10))
-const derecha = game.at(-15, 3.randomUpTo(10))
+const izquierda = game.at(20,5.randomUpTo(15))
+const derecha = game.at(-15,5.randomUpTo(15))
 
 class ObjetoVivoEnMenu {
 	const listaDeImg
 	var property position 
-	var property image = listaDeImg.first()
-	const velocidad = [600, 800, 1000]
+	var property image = listaDeImg.anyOne()
+	const velocidad = [400, 600, 800]
 	
 	method iniciar() {
 		if (position==izquierda)
@@ -82,7 +82,6 @@ class ObjetoVivoEnMenu {
 	}
 }
 
-const astronautaMenu1 = new ObjetoVivoEnMenu(listaDeImg=astronautas, position=izquierda)
-const astronautaMenu2 = new ObjetoVivoEnMenu(listaDeImg=astronautas, image=astronautas.anyOne(), position=derecha)
-const piedrasMenu1 = new ObjetoVivoEnMenu(listaDeImg=imgPiedrasMenu, position=derecha)
+const rocaIzquierda = new ObjetoVivoEnMenu(listaDeImg=rocasMenu, position=izquierda)
+const rocaDerecha = new ObjetoVivoEnMenu(listaDeImg=rocasMenu, position=derecha)
 
