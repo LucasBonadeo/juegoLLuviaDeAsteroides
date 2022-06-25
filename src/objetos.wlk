@@ -23,6 +23,11 @@ object nave {
 	var property image = "naveBase.png"
 	var property modoCombate = false
 	
+	//acciones de la nave vida 
+	method chocar(elemento){
+		
+	}
+	
 	method activarModoCombate() {
 		if (not modoCombate) {
 			modoCombate = true
@@ -38,9 +43,33 @@ object nave {
 
 class Asteroide {
 	var property position 
-	const property image 
+	var property image 
 	const property velocidades = [600, 400, 200]
+	const property imagenAux = image
 	
+	//colision
+	method auxiliarDespuesChoque(){
+		self.volverALaOriginal()
+		self.moverPosicionLuegoDeChoque()
+		game.removeTickEvent("choque asteroide")
+	}
+	method cambiarLaImagen(){
+		self.image("asteroideRoto.png")
+	}
+	method volverALaOriginal(){
+		self.image(imagenAux)
+	}
+	method moverPosicionLuegoDeChoque(){
+		self.position(new Position(x=0.randomUpTo(game.width()).truncate(0), y =21.randomUpTo(25).truncate(0)))
+	}
+	method metodosChoques(){
+		self.cambiarLaImagen()
+		self.chocar()
+	}
+	method chocar(){
+		game.onTick(100,"choque asteroide",{self.auxiliarDespuesChoque()})
+	}
+	//
 	method iniciarMovimiento(unaVelocidad) {
 		game.onTick(unaVelocidad,"mover asteroide",{ self.mover() })
 	}

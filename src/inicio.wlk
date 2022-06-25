@@ -60,7 +60,10 @@ object partida {
 			game.addVisual(asteroide)
 			asteroide.iniciarMovimiento(asteroide.velocidades().anyOne())
 		})
-		}
+		game.whenCollideDo(nave,{elemento=>if(elemento!=laser)elemento.metodosChoques()})
+		game.whenCollideDo(laser,{elemento=>if(elemento!=nave)elemento.metodosChoques()})
+		
+ }
 }
 
 object dificultad {
