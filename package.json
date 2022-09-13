@@ -1,7 +1,7 @@
 {
-  "name": "juegoNaves",
+  "name": "ConsolaDeJuegos",
   "version": "1.0.0",
   "wollokVersion": "3.0.0",
-  "author": "hp",
+  "author": "lucas",
   "license": "ISC"
 }

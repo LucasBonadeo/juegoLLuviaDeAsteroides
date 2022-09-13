@@ -1,9 +1,0 @@
-import wollok.game.*
-import inicio.*
-
-program naves {
-	
-	partida.iniciar()
-	game.start()
-	
-}
